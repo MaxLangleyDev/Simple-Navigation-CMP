@@ -2,12 +2,14 @@ package navigation
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 
 class SimpleNavController(initialScreen: Screen) {
 
     private val _currentScreen = MutableStateFlow(initialScreen)
-    val currentScreen: StateFlow<Screen> = _currentScreen
+    val currentScreen= _currentScreen.asStateFlow()
 
     private val backStack: MutableList<Screen> = mutableListOf()
 
@@ -21,9 +23,13 @@ class SimpleNavController(initialScreen: Screen) {
 
     fun navigateBack(){
 
-        _currentScreen.update { backStack.last() }
+        if (backStack.isNotEmpty()){
 
-        backStack.removeLast()
+            _currentScreen.update { backStack.last() }
+
+            backStack.removeLast()
+
+        }
 
     }
 
