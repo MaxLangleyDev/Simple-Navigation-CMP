@@ -3,6 +3,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -10,6 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 import navigation.Screen
 import navigation.SimpleNavController
 
@@ -17,15 +20,14 @@ import navigation.SimpleNavController
 fun App() {
     MaterialTheme {
 
-        Column(
+        Surface(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            val navController = remember { SimpleNavController(Screen.Screen1) }
+            val navController = remember { SimpleNavController(Screen.Home) }
             val currentScreen by navController.currentScreen.collectAsState()
 
-            Screen1(visible = currentScreen == Screen.Screen1, navController = navController)
+            HomeScreen(visible = currentScreen == Screen.Home, navController = navController)
             Screen2(visible = currentScreen == Screen.Screen2, navController = navController)
             Screen3(visible = currentScreen == Screen.Screen3, navController = navController)
 
@@ -34,7 +36,7 @@ fun App() {
 }
 
 @Composable
-fun Screen1(
+fun HomeScreen(
     modifier: Modifier = Modifier.fillMaxSize(),
     navController: SimpleNavController,
     visible: Boolean
@@ -46,7 +48,7 @@ fun Screen1(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text( text = "Screen 1" )
+            Text( text = "Home Screen", fontSize = 24.sp )
 
             Button(
                 onClick = { navController.navigateTo(Screen.Screen2) }
@@ -69,7 +71,7 @@ fun Screen2(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text( text = "Screen 2" )
+            Text( text = "Screen 2", fontSize = 24.sp  )
 
             Button(
                 onClick = { navController.navigateTo(Screen.Screen3) }
@@ -96,7 +98,7 @@ fun Screen3(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Text( text = "Screen 3" )
+            Text( text = "Screen 3", fontSize = 24.sp  )
 
             Button(
                 onClick = { navController.navigateBack() }
